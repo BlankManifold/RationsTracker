@@ -1,19 +1,19 @@
 ﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodsPortionsTracker", "FoodsPortionsTracker.csproj", "{A5A47D1A-549B-4343-A671-CE2F58928650}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodsPortionsTracker", "FoodsPortionsTracker.csproj", "{90480D3C-CA61-4A84-BAA5-764665B829D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		ExportDebug|Any CPU = ExportDebug|Any CPU
-		ExportRelease|Any CPU = ExportRelease|Any CPU
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A5A47D1A-549B-4343-A671-CE2F58928650}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A5A47D1A-549B-4343-A671-CE2F58928650}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A5A47D1A-549B-4343-A671-CE2F58928650}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
-		{A5A47D1A-549B-4343-A671-CE2F58928650}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
-		{A5A47D1A-549B-4343-A671-CE2F58928650}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
-		{A5A47D1A-549B-4343-A671-CE2F58928650}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{90480D3C-CA61-4A84-BAA5-764665B829D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90480D3C-CA61-4A84-BAA5-764665B829D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90480D3C-CA61-4A84-BAA5-764665B829D0}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{90480D3C-CA61-4A84-BAA5-764665B829D0}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{90480D3C-CA61-4A84-BAA5-764665B829D0}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{90480D3C-CA61-4A84-BAA5-764665B829D0}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
 	EndGlobalSection
 EndGlobal
