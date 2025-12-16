@@ -8,3 +8,4 @@ exports/
 
 # VSCode
 .vscode/
+.DS_Store
