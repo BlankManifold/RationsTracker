@@ -13,7 +13,7 @@ config_version=5
 config/name="RationsTracker"
 config/description="Keep track of rations of things."
 run/main_scene="res://scenes/Main.tscn"
-config/features=PackedStringArray("4.1", "C#", "Mobile")
+config/features=PackedStringArray("4.5", "C#", "Mobile")
 config/icon="res://rationsTracker.png"
 
 [display]

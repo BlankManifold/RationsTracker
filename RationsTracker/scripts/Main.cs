@@ -106,7 +106,7 @@ public partial class Main : Node
     {
         UpdatePeriodScaleOptionButton(portionsSetRes.PeriodScaleIndex);
         _selectionPeriodScaleButton.Select(portionsSetRes.PeriodScaleIndex);
-        
+
         UpdateResetDayOptionButton(portionsSetRes.ResetDayIndex);
     }
     #endregion

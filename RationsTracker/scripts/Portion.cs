@@ -15,7 +15,7 @@ public partial class Portion : MarginContainer
         get { return _info; }
     }
     private string _setName = "";
-    public string SetName 
+    public new string SetName
     {
         get { return _setName; }
         set { _setName = value; }
@@ -68,7 +68,7 @@ public partial class Portion : MarginContainer
 
         if (!_info.Enabled)
             Disable();
-        
+
     }
     private void _UpdateProgressBarLabel(int value)
     {
@@ -97,10 +97,10 @@ public partial class Portion : MarginContainer
         _info.Enabled = enabled;
         _nameLabel.Editable = enabled;
 
-        GetNode<Button>("%MinusButton").Disabled = !enabled; 
-        GetNode<Button>("%PlusButton").Disabled = !enabled; 
+        GetNode<Button>("%MinusButton").Disabled = !enabled;
+        GetNode<Button>("%PlusButton").Disabled = !enabled;
 
-        
+
     }
     public void RemoveLowerPortion(Portion portion)
     {
@@ -246,7 +246,7 @@ public partial class Portion : MarginContainer
             string oldName = _info.PortionName;
 
             GetTree().CallGroup(
-                $"portions_{_setName}", MethodName.UpdateCheckBoxName, new Variant[] {oldName, newText}
+                $"portions_{_setName}", MethodName.UpdateCheckBoxName, new Variant[] { oldName, newText }
                 );
 
             _info.PortionName = newText;
