@@ -40,8 +40,7 @@ public partial class Portion : MarginContainer
         _portionOptionsBox = GetNode<PortionOptionsBox>("%PortionOptionsBox");
         _colorRect = GetNode<Panel>("%ColorRect");
 
-        if (_info == null)
-            _info = new PortionRes();
+        _info ??= new PortionRes();
 
         _nameLabel.Text = _info.PortionName;
         _InitProgressBar(_info);
@@ -199,7 +198,7 @@ public partial class Portion : MarginContainer
             }
         }
 
-        if (typesToBeRemoved.Count<string>() != 0)
+        if (typesToBeRemoved.Any())
         {
             foreach (string type in typesToBeRemoved)
             {
@@ -217,7 +216,7 @@ public partial class Portion : MarginContainer
         }
 
         GetTree().CallGroup(
-            $"portions_{_setName}", MethodName.RemoveSelectionCheckBox, new Variant[] { _info.PortionName }
+            $"portions_{_setName}", MethodName.RemoveSelectionCheckBox, [_info.PortionName]
             );
         Globals.SetsData.RemovePortion(_setName, _info.PortionName, this);
         QueueFree();
@@ -233,11 +232,11 @@ public partial class Portion : MarginContainer
     }
     public void _on_move_button_button_down()
     {
-        EmitSignal(SignalName.MoveButtonChanged, new Variant[] { this, true });
+        EmitSignal(SignalName.MoveButtonChanged, [this, true]);
     }
     public void _on_move_button_button_up()
     {
-        EmitSignal(SignalName.MoveButtonChanged, new Variant[] { this, false });
+        EmitSignal(SignalName.MoveButtonChanged, [this, false]);
     }
     public void _on_name_label_text_submitted(string newText)
     {
@@ -246,7 +245,7 @@ public partial class Portion : MarginContainer
             string oldName = _info.PortionName;
 
             GetTree().CallGroup(
-                $"portions_{_setName}", MethodName.UpdateCheckBoxName, new Variant[] { oldName, newText }
+                $"portions_{_setName}", MethodName.UpdateCheckBoxName, [oldName, newText]
                 );
 
             _info.PortionName = newText;

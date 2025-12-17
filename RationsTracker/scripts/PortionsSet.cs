@@ -1,5 +1,7 @@
 using Godot;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public partial class PortionsSet : Control
 {
@@ -136,10 +138,35 @@ public partial class PortionsSet : Control
             _portionsContainer.AddChild(item.Value);
         }
     }
+    public void InitFromDict(string setName)
+    {
+        _portionsSetRes = Globals.SetsData.PortionsSetResDict[setName];
 
+        foreach (Portion portion in Globals.SetsData.GetPortions(_portionsSetRes.SetName))
+        {
+            portion.Init(_portionsSetRes.SetName, portion.Info);
+            _portionsContainer.AddChild(portion);
+        }
+    }
+    public void Clear()
+    {
+        _portionsSetRes = null;
+
+        foreach (Portion portion in _portionsContainer.GetChildren().Cast<Portion>())
+            _portionsContainer.RemoveChild(portion);
+    }
     public void UpdateSetName(string setName)
     {
+        string oldSetName = _portionsSetRes.SetName;
         _portionsSetRes.SetName = setName;
+
+        foreach (Portion portion in Globals.SetsData.GetPortions(_portionsSetRes.SetName))
+        {
+            portion.SetName = setName;
+            portion.RemoveFromGroup($"portions_{oldSetName}");
+            portion.AddToGroup($"portions_{setName}");
+        }
+
         foreach (KeyValuePair<string, Portion> item in Globals.SetsData.GetPortionsDict(setName))
             item.Value.SetName = setName;
     }
@@ -194,6 +221,7 @@ public partial class PortionsSet : Control
         _movingPortionInfo.SnapPosition();
         _movingPortionInfo.PortionToBeMoved = null;
     }
+
     // public void OnPortionNameChanged(string newName)
     // {
 

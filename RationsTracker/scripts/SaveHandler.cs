@@ -1,14 +1,13 @@
 using System.Linq;
-using System.Linq;
 using Godot;
 
 namespace Handlers
 {
 	public static class SaveLoadHandler
 	{
-		static public string[] CreateSetsNameList()
+		static public Godot.Collections.Array<string> CreateSetsNameList()
 		{
-			string[] setsList = new string[] { };
+			string[] setsList = [];
 
 			if (DirAccess.Open(Globals.Paths.SaveSetsPlot) != null)
 			{
@@ -16,37 +15,33 @@ namespace Handlers
 				setsList = dirAccess.GetFiles();
 			}
 
-			return setsList.Select(
+			setsList = [.. setsList.Select(
 				fileName =>
 					{
 						int startIndex = fileName.IndexOf('_') + 1;
 						int endIndex = fileName.LastIndexOf('.');
-						return fileName.Substring(startIndex, endIndex - startIndex);
+						return fileName[startIndex..endIndex].Replace("_", " ");
 					}
-				).ToArray();
-		}
-		static public void SaveSet(Godot.Collections.Array<Portion> portions, string name = "")
-		{
-			PortionsSetRes portionsSetRes = new PortionsSetRes();
-			portionsSetRes.SetName = name;
+				)];
 
-			foreach (Portion portion in portions)
-			{
-				portionsSetRes.PortionsResList.Add(portion.Info);
-			}
-			string file_path = System.IO.Path.Combine(Globals.Paths.SaveSetsPlot, $"set_{name}.tres");
-			ResourceSaver.Save(portionsSetRes, file_path);
+			return [.. setsList];
+		}
+		static public void SaveSet(PortionsSetRes portionsSetRes)
+		{
+			string fileName = portionsSetRes.SetName.Replace(" ", "_");
+			string filePath = System.IO.Path.Combine(Globals.Paths.SaveSetsPlot, $"set_{fileName}.tres");
+			ResourceSaver.Save(portionsSetRes, filePath);
 		}
 		static public PortionsSetRes LoadSet(string name)
 		{
-			string file_path = System.IO.Path.Combine(Globals.Paths.SaveSetsPlot, $"set_{name}.tres");
-			if (!ResourceLoader.Exists(file_path))
+			string fileName = name.Replace(" ", "_");
+			string filePath = System.IO.Path.Combine(Globals.Paths.SaveSetsPlot, $"set_{fileName}.tres");
+			if (!ResourceLoader.Exists(filePath))
 			{
-				return null;
 				return null;
 			}
 
-			PortionsSetRes portionsSetRes = (PortionsSetRes)ResourceLoader.Load(file_path, cacheMode: ResourceLoader.CacheMode.Ignore);
+			PortionsSetRes portionsSetRes = (PortionsSetRes)ResourceLoader.Load(filePath, cacheMode: ResourceLoader.CacheMode.Ignore);
 			return portionsSetRes;
 		}
 		static public void RemoveSet(string name)
@@ -70,47 +65,38 @@ namespace Handlers
 		}
 		static public ConfigFile LoadMainConfig()
 		{
-			static public ConfigFile LoadMainConfig()
-			{
-				string configFilePath = System.IO.Path.Combine(Globals.Paths.SaveConfigs, $"main_config.cfg");
-				ConfigFile config = new ConfigFile();
-				Error err = config.Load(configFilePath);
-				if (err != Error.Ok) { return null; }
+			string configFilePath = System.IO.Path.Combine(Globals.Paths.SaveConfigs, $"main_config.cfg");
+			ConfigFile config = new ConfigFile();
+			Error err = config.Load(configFilePath);
+			if (err != Error.Ok) { return null; }
 
-				return config;
-				return config;
-			}
-			static public void CreateMainConfig()
-			{
-				static public void CreateMainConfig()
-				{
-					if (DirAccess.Open(Globals.Paths.SaveConfigs) != null)
-					{
-						return;
-					}
-					DirAccess dirAccess = DirAccess.Open("user://");
-					dirAccess.MakeDir("configs");
-
-					string configFilePath = System.IO.Path.Combine(Globals.Paths.SaveConfigs, $"main_config.cfg");
-					ConfigFile config = new ConfigFile();
-
-
-
-
-					config.Save(configFilePath);
-				}
-				static public void CreateSaveSetsDir()
-				{
-					static public void CreateSaveSetsDir()
-					{
-						if (DirAccess.Open(Globals.Paths.SaveSetsPlot) != null)
-						{
-							return;
-						}
-						DirAccess dirAccess = DirAccess.Open("user://");
-						dirAccess.MakeDir("sets");
-					}
-				}
-			}
-
+			return config;
 		}
+		static public void CreateMainConfig()
+		{
+			if (DirAccess.Open(Globals.Paths.SaveConfigs) != null)
+			{
+				return;
+			}
+			DirAccess dirAccess = DirAccess.Open("user://");
+			dirAccess.MakeDir("configs");
+
+			string configFilePath = System.IO.Path.Combine(Globals.Paths.SaveConfigs, $"main_config.cfg");
+			ConfigFile config = new ConfigFile();
+
+
+
+
+			config.Save(configFilePath);
+		}
+		static public void CreateSaveSetsDir()
+		{
+			if (DirAccess.Open(Globals.Paths.SaveSetsPlot) != null)
+			{
+				return;
+			}
+			DirAccess dirAccess = DirAccess.Open("user://");
+			dirAccess.MakeDir("sets");
+		}
+	}
+}

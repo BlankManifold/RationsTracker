@@ -13,18 +13,18 @@ public partial class PortionRes : Resource
     [Export] public Godot.Collections.Array<string> LowerPortions;
     [Export] public Godot.Collections.Array<string> UpperPortions;
 
-    public PortionRes() 
-    {  
+    public PortionRes()
+    {
         // Identifier = $"{Convert.ToString(0,16)}";   
-        PortionName = ""; 
-        Enabled = true; 
-        MaxValue = 0; 
-        MinValue = 0; 
-        Value = 0; 
-        IntrisicValue = 0; 
-        PortionColor = new Color(0.5f,0.5f,0.5f,1f); 
-        LowerPortions = new Godot.Collections.Array<string> {};  
-        UpperPortions = new Godot.Collections.Array<string> {};  
+        PortionName = "";
+        Enabled = true;
+        MaxValue = 0;
+        MinValue = 0;
+        Value = 0;
+        IntrisicValue = 0;
+        PortionColor = new Color(0.5f, 0.5f, 0.5f, 1f);
+        LowerPortions = [];
+        UpperPortions = [];
     }
 
 }

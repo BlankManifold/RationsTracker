@@ -8,8 +8,8 @@ public partial class PortionOptionsBox : VBoxContainer
     private GridContainer _childrenCheckBoxesContainer;
     private ColorPicker _colorPicker;
     private ColorPickerButton _colorPickerButton;
-    private Godot.Collections.Dictionary<string, CheckBox> _checkBoxesDict = new Godot.Collections.Dictionary<string, CheckBox>();
-    private Godot.Collections.Dictionary<string, bool> _initialCheckBoxesNameDict = new Godot.Collections.Dictionary<string, bool>();
+    private Godot.Collections.Dictionary<string, CheckBox> _checkBoxesDict = [];
+    private Godot.Collections.Dictionary<string, bool> _initialCheckBoxesNameDict = [];
     private string _setName = "";
 
     [Signal]
@@ -25,16 +25,18 @@ public partial class PortionOptionsBox : VBoxContainer
     {
         foreach (string type in portionTypes)
         {
-            CheckBox checkBox = new CheckBox();
-            checkBox.ButtonPressed = false;
-            checkBox.Text = type;
+            CheckBox checkBox = new CheckBox
+            {
+                ButtonPressed = false,
+                Text = type
+            };
 
             _checkBoxesDict.Add(type, checkBox);
         }
 
         foreach (CheckBox checkBox in _checkBoxesDict.Values)
             _childrenCheckBoxesContainer.AddChild(checkBox);
-        
+
     }
     public override void _Ready()
     {
@@ -58,7 +60,7 @@ public partial class PortionOptionsBox : VBoxContainer
             checkBox.ButtonPressed = false;
     }
     public void UpdateCheckBoxes(
-        Godot.Collections.Array<string> lowerTypes, 
+        Godot.Collections.Array<string> lowerTypes,
         Godot.Collections.Array<string> upperTypes
     )
     {
@@ -67,7 +69,7 @@ public partial class PortionOptionsBox : VBoxContainer
             _checkBoxesDict[type].ButtonPressed = true;
             _initialCheckBoxesNameDict[type] = true;
         }
-        
+
         foreach (string type in upperTypes)
             Disable(type);
     }
@@ -89,10 +91,12 @@ public partial class PortionOptionsBox : VBoxContainer
     {
         if (_checkBoxesDict.ContainsKey(type))
             return;
-            
-        CheckBox checkBox = new CheckBox();
-        checkBox.ButtonPressed = false;
-        checkBox.Text = type;
+
+        CheckBox checkBox = new CheckBox
+        {
+            ButtonPressed = false,
+            Text = type
+        };
 
         _checkBoxesDict.Add(type, checkBox);
         _childrenCheckBoxesContainer.AddChild(checkBox);

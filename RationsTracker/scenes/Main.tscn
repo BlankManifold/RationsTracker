@@ -31,7 +31,7 @@ theme_override_constants/margin_bottom = 20
 [node name="MainContainer" type="VBoxContainer" parent="MainMarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 30
-script = ExtResource("2_qg5t6")
+; script = ExtResource("2_qg5t6")
 
 [node name="MainLabel" type="Label" parent="MainMarginContainer/MainContainer"]
 layout_mode = 2

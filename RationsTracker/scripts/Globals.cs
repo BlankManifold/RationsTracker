@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using Handlers;
 
@@ -17,31 +18,52 @@ namespace Globals
     public struct SetsData
     {
         public static Godot.Collections.Dictionary<string, Godot.Collections.Dictionary<string, Portion>> PortionsDict =
-            new Godot.Collections.Dictionary<string, Godot.Collections.Dictionary<string, Portion>> { };
+            [];
+        public static Godot.Collections.Dictionary<string, PortionsSetRes> PortionsSetResDict = [];
+
 
         //TODO NON SERVE -> SONO LE KEYS DI DICT INTERNO DI PORTIONSDICT! 
         public static Godot.Collections.Dictionary<string, Godot.Collections.Array<string>> PortionsTypesDict =
-            new Godot.Collections.Dictionary<string, Godot.Collections.Array<string>> { };
+            [];
 
         public static void AddSetKey(string setName)
         {
-            PortionsDict[setName] = new Godot.Collections.Dictionary<string, Portion> { };
-            PortionsTypesDict[setName] = new Godot.Collections.Array<string> { };
+            PortionsDict[setName] = [];
+            PortionsTypesDict[setName] = [];
+        }
+        public static void AddSet(PortionsSetRes portionsSetRes)
+        {
+
+            PortionsSetResDict.Add(portionsSetRes.SetName, portionsSetRes);
+            PortionsDict[portionsSetRes.SetName] = [];
+            PortionsTypesDict[portionsSetRes.SetName] = [];
+
+            foreach (PortionRes portionRes in portionsSetRes.PortionsResList)
+            {
+                Portion portion = PackedScenes.Portion.Instantiate<Portion>();
+                portion.Init(portionsSetRes.SetName, portionRes);
+                PortionsDict[portionsSetRes.SetName].Add(portion.Info.PortionName, portion);
+                PortionsTypesDict[portionsSetRes.SetName].Add(portion.Info.PortionName);
+            }
         }
         public static void RemoveSet(string setName)
         {
             PortionsDict.Remove(setName);
             PortionsTypesDict.Remove(setName);
+            PortionsSetResDict.Remove(setName);
+            SaveLoadHandler.RemoveSet(setName);
         }
         public static void AddPortion(string setName, string type, Portion portion)
         {
             PortionsDict[setName].Add(type, portion);
             PortionsTypesDict[setName].Add(type);
+            PortionsSetResDict[setName].PortionsResList.Add(portion.Info);
         }
         public static void RemovePortion(string setName, string type, Portion portion)
         {
             PortionsDict[setName].Remove(type);
             PortionsTypesDict[setName].Remove(type);
+            PortionsSetResDict[setName].PortionsResList.Remove(portion.Info);
         }
         public static void ChangePortionName(string setName, string newType, string oldType)
         {
@@ -61,10 +83,19 @@ namespace Globals
 
             PortionsTypesDict[newSetName] = PortionsTypesDict[oldSetName];
             PortionsTypesDict.Remove(oldSetName);
+
+            PortionsSetResDict[newSetName] = PortionsSetResDict[oldSetName];
+            PortionsSetResDict.Remove(oldSetName);
+
+            SaveLoadHandler.ChangeSetName(oldSetName, newSetName);
         }
         public static bool ContainsPortionType(string setName, string type)
         {
             return PortionsDict[setName].ContainsKey(type);
+        }
+        public static Godot.Collections.Array<Portion> GetPortions(string setName)
+        {
+            return (Godot.Collections.Array<Portion>)PortionsDict[setName].Values;
         }
         public static Godot.Collections.Dictionary<string, Portion> GetPortionsDict(string setName)
         {

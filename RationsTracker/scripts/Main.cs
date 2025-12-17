@@ -1,3 +1,4 @@
+using System.Linq;
 using Godot;
 
 public partial class Main : Node
@@ -7,7 +8,7 @@ public partial class Main : Node
     private OptionButton _selectionMonthlyResetDayButton;
     private OptionButton _selectionPeriodScaleButton;
     private int _currentSetIndex = 0;
-    private Godot.Collections.Array<string> _setsNameList = new Godot.Collections.Array<string> { };
+    private Godot.Collections.Array<string> _setsNameList = [];
     private LineEdit _setNameLineEdit;
     private LineEdit _addNewSetLineEdit;
     private Window _addNewSetWindow;
@@ -44,7 +45,7 @@ public partial class Main : Node
         }
         else
         {
-            PortionsSetRes portionsSetRes = new PortionsSetRes { SetName = "NomeSet" };
+            PortionsSetRes portionsSetRes = new() { SetName = "NomeSet" };
             Globals.SetsData.AddSet(portionsSetRes);
             _portionsSet.InitFromDict("NomeSet");
         }
