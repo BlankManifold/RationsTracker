@@ -92,7 +92,7 @@ public partial class PortionOptionsBox : VBoxContainer
         if (_checkBoxesDict.ContainsKey(type))
             return;
 
-        CheckBox checkBox = new CheckBox
+        CheckBox checkBox = new()
         {
             ButtonPressed = false,
             Text = type
@@ -110,11 +110,7 @@ public partial class PortionOptionsBox : VBoxContainer
     }
     public Godot.Collections.Array<string> GetCheckedPortionTypes()
     {
-        return new Godot.Collections.Array<string>(
-            _checkBoxesDict.Where(
-                x => x.Value.ButtonPressed).Select(
-                    x => x.Key)
-            );
+        return [.. _checkBoxesDict.Where(x => x.Value.ButtonPressed).Select(x => x.Key)];
     }
     public void UpdateCheckBoxName(string oldName, string newName)
     {

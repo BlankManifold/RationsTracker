@@ -111,7 +111,7 @@ public partial class PortionsSet : Control
 
         _portionsContainer.AddChild(portion);
         GetTree().CallGroup(
-            "portions",
+            $"portions_{_portionsSetRes.SetName}",
             Portion.MethodName.AddSelectionCheckBox,
             [portionRes.PortionName]
         );
