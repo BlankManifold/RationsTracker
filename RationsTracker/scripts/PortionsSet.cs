@@ -110,11 +110,8 @@ public partial class PortionsSet : Control
         EmitSignal(SignalName.AddPortion, portion);
 
         _portionsContainer.AddChild(portion);
-        GetTree().CallGroup(
-            $"portions_{_portionsSetRes.SetName}",
-            Portion.MethodName.AddSelectionCheckBox,
-            [portionRes.PortionName]
-        );
+        GetTree().CallGroup($"portions_{_portionsSetRes.SetName}", Portion.MethodName.AddSelectionCheckBox,
+            [portionRes.PortionName]);
     }
     #endregion
 
@@ -144,6 +141,7 @@ public partial class PortionsSet : Control
 
         foreach (Portion portion in Globals.SetsData.GetPortions(_portionsSetRes.SetName))
         {
+            portion.MoveButtonChanged += OnPortionMoveButtonChanged;
             portion.Init(_portionsSetRes.SetName, portion.Info);
             _portionsContainer.AddChild(portion);
         }
